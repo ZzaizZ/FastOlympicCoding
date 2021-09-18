@@ -2,6 +2,7 @@ import sublime, sublime_plugin
 import os
 from os import path
 from .ContestHandlers import codeforces
+from .ContestHandlers import default_handler
 try:
 	from .ContestHandlers.codeforces_submit import perform_submission
 except ImportError:
@@ -13,7 +14,7 @@ from .settings import get_tests_file_path
 class ContestHandlerCommand(sublime_plugin.TextCommand):
 
 	def run(self, edit, action=None):
-		if action == 'setup_contest':
+		if action == 'setup_codeforces_contest':
 			def on_done(url, self=self):
 				cf = codeforces.CodeForces(url, 'contest_base')
 				cf.init_contest()
@@ -27,6 +28,24 @@ class ContestHandlerCommand(sublime_plugin.TextCommand):
 			self.view.window().show_input_panel(
 				'URL',
 				'https://codeforces.com/contest/1056/problem/C',
+				on_done,
+				on_change,
+				on_cancel
+			)
+		elif action == 'setup_default_contest':
+			def on_done(contest_name, self=self):
+				cf = default_handler.DefaultHandler('contest_base', contest_name)
+				cf.init_contest()
+
+			def on_change(url):
+				pass
+
+			def on_cancel():
+				pass
+
+			self.view.window().show_input_panel(
+				'Contest Name',
+				'User Contest 1',
 				on_done,
 				on_change,
 				on_cancel

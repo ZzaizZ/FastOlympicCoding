@@ -42,10 +42,17 @@
 		}
 	},
 	{
-		"caption": "FastOlympicCoding: Setup Contest",
+		"caption": "FastOlympicCoding: Setup Codeforces Contest",
 		"command": "contest_handler",
 		"args": {
-			"action": "setup_contest"
+			"action": "setup_codeforces_contest"
+		}
+	},
+	{
+		"caption": "FastOlympicCoding: Setup Default Contest",
+		"command": "contest_handler",
+		"args": {
+			"action": "setup_default_contest"
 		}
 	},
 	// {
